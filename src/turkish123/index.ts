@@ -29,7 +29,7 @@ export default class Turkish123 extends SourceModule {
   metadata = {
     id: "Turkish123",
     name: "Turkish123",
-    version: "1.1.3",
+    version: "1.1.4",
     icon: "https://turkish123.ac/wp-content/themes/TurkishSeries/assets/css/img/favicon.png"
   };
 
@@ -108,15 +108,15 @@ export default class Turkish123 extends SourceModule {
     const html = await request.get(playlistId).then(resp => resp.text());
     const $ = load(html);
     var id = ""
-
+    console.log($().find("h1").text())
     const playlistGroups: PlaylistGroup[] = $("div.les-content").map(() => {
       const items: PlaylistItem[] = $("a.episodi")
       .toArray()
       .map((a) => {
-        console.log(parseInt($(a).text().match(/Episode (\d+)/)![1]));
         let id = `${$(a).attr("href")!}-${parseInt($(a).text().match(/Episode (\d+)/)![1])}`
         return {
           id: $(a).attr("href")!,
+          title: `${$("h1").text()} ${parseInt($(a).text().match(/Episode (\d+)/)![1])}`,
           number: parseInt($(a).text().match(/Episode (\d+)/)![1]),
           tags: []
         } satisfies PlaylistItem
@@ -187,17 +187,28 @@ export default class Turkish123 extends SourceModule {
     const referer = 'https://tukipasti.com';
     const html = await request.get(mainUrl, { headers: { referer } }).then(resp => resp.text());
     console.log(html.split('\n')[html.split('\n').length - 2]);
-
-    return {
-      links:  [{
-        url: req.serverId,
-        // url: `https://m3u8-proxy-cors-wl83.onrender.com/cors?url=${req.serverId.substring(0, req.serverId.length - 11)}${html.split('\n')[html.split('\n').length - 2]}&headers={"referer":"https://tukipasti.com"}`,
-        quality: PlaylistEpisodeServerQualityType.auto,
+  
+    // Define the type for the links array
+    const links: { url: string; quality: PlaylistEpisodeServerQualityType; format: PlaylistEpisodeServerFormatType; }[] = [];
+  
+    // Check if the serverId contains 'm3u8'
+    if (req.serverId.includes('m3u8')) {
+      const updatedUrl = req.serverId.replace('.m3u8', '1080.m3u8');
+      links.push({
+        url: updatedUrl,
+        quality: PlaylistEpisodeServerQualityType.q1080p,
         format: PlaylistEpisodeServerFormatType.hsl
-      }],
+      });
+    }
+    else{
+      throw Error
+    }
+  
+    return {
+      links: links,
       subtitles: [],
       skipTimes: [],
-      headers: {"referer":"https://tukipasti.com"}
+      headers: { "Referer": "https://tukipasti.com", "User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/126.0.6478.108 Mobile/15E148 Safari/604.1" }
     }
   }
 }
