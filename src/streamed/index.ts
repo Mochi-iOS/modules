@@ -27,7 +27,7 @@ export default class Turkish123 extends SourceModule {
 
   metadata = {
     name: "Streamed",
-    version: "1.1.1",
+    version: "1.1.2",
     icon: "https://streamed.su/favicon.png"
   };
 
@@ -138,7 +138,7 @@ export default class Turkish123 extends SourceModule {
       id: "servers",
       description: "TVEmbed",
       servers: [{
-        id: `https://rr.ignores.top/js/${url}/playlist.m3u8`,
+        id: `https://rr.vipstreams.in/js/${url}/playlist.m3u8`,
         displayName: `TVEmbed`
       } satisfies PlaylistEpisodeServer],
       displayName: "TVEmbed"
