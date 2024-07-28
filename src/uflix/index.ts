@@ -28,7 +28,7 @@ export default class Braflix extends SourceModule {
   metadata = {
     name: "uFlix",
     icon: "",
-    version: "1.0.0",
+    version: "1.0.1",
   };
 
   async searchFilters(): Promise<SearchFilter[]> {
@@ -220,9 +220,9 @@ export default class Braflix extends SourceModule {
       let imdb = episodeData(req.serverId).imdbID;
       let episode = episodeData(req.serverId).episodeNumber;
       let season = episodeData(req.serverId).seasonNumber;
-      response = (await request.get(`https://vidsrc-mochi.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`)).text();
+      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`)).text();
     } else {
-      response = (await request.get(`https://vidsrc-mochi.vercel.app/vidsrc/${req.serverId}`)).text();
+      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
     }
     
     
