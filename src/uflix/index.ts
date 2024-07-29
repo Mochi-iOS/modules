@@ -230,7 +230,7 @@ export default class Braflix extends SourceModule {
     try {
       const json = JSON.parse(response);
       const subtitles = json.vidsrc.subtitles;
-      const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English");
+      const englishSubtitle = subtitles[12].find((subtitle: { file: string, lang: string }) => subtitle.lang === "English");
 
       var fhd = "";
       var hd = "";
