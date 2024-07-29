@@ -28,7 +28,7 @@ export default class Braflix extends SourceModule {
   metadata = {
     name: "uFlix",
     icon: "",
-    version: "1.0.1",
+    version: "1.0.2",
   };
 
   async searchFilters(): Promise<SearchFilter[]> {
@@ -233,7 +233,7 @@ export default class Braflix extends SourceModule {
       var hd = "";
       var low = "";
       
-      await parseM3U8(json[0].data.file).then(parser => {
+      await parseM3U8(json[0].vidsrc.source).then(parser => {
         fhd = parser['1920x1080'];
         hd = parser['1280x720'];
         low = parser['640x360'];
