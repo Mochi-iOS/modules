@@ -272,7 +272,7 @@ export default class Braflix extends SourceModule {
       // Handle JSON parsing error gracefully
       return {
         links: [],
-        subtitles: [englishSubtitle],
+        subtitles: [],
         skipTimes: [],
         headers: {}
       };
