@@ -28,7 +28,7 @@ export default class Braflix extends SourceModule {
   metadata = {
     name: "uFlix",
     icon: "",
-    version: "1.0.2",
+    version: "1.0.3",
   };
 
   async searchFilters(): Promise<SearchFilter[]> {
@@ -224,7 +224,10 @@ export default class Braflix extends SourceModule {
     } else {
       response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
     }
-    
+
+    const subtitles = data.vidsrc.subtitles;
+    const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English")!.toString();
+
     
     try {
       const json = JSON.parse(response);
@@ -259,7 +262,7 @@ export default class Braflix extends SourceModule {
             format: PlaylistEpisodeServerFormatType.hsl
           }
         ],
-        subtitles: [],
+        subtitles: [englishSubtitle],
         skipTimes: [],
         headers: {}
       };
