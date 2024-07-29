@@ -225,13 +225,13 @@ export default class Braflix extends SourceModule {
       response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
     }
 
-    const subtitles = data.vidsrc.subtitles;
-    const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English");
-
+  
     
     try {
       const json = JSON.parse(response);
-      
+      const subtitles = json.vidsrc.subtitles;
+      const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English");
+
       var fhd = "";
       var hd = "";
       var low = "";
