@@ -226,7 +226,7 @@ export default class Braflix extends SourceModule {
     }
 
     const subtitles = data.vidsrc.subtitles;
-    const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English")!.toString();
+    const englishSubtitle = subtitles.find((subtitle: { file: string, lang: string }) => subtitle.lang === "English");
 
     
     try {
@@ -272,7 +272,7 @@ export default class Braflix extends SourceModule {
       // Handle JSON parsing error gracefully
       return {
         links: [],
-        subtitles: [],
+        subtitles: [englishSubtitle],
         skipTimes: [],
         headers: {}
       };
