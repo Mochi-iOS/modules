@@ -234,8 +234,8 @@ export default class Braflix extends SourceModule {
     
     try {
       const json = JSON.parse(response.text())
-      const json2 = JSON.parse(response.body)
-      console.log(json2.vidsrc.subtitles[11].file)
+      //const json2 = JSON.parse(response.body)
+      //console.log(json2.vidsrc.subtitles[11].file)
 
       
       var fhd = "";
@@ -268,7 +268,7 @@ export default class Braflix extends SourceModule {
             format: PlaylistEpisodeServerFormatType.hsl
           }
         ],
-        subtitles: [json2.vidsrc.subtitles[11].file],
+        subtitles: [],
         skipTimes: [],
         headers: {}
       };
