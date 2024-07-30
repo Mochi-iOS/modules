@@ -220,32 +220,22 @@ export default class Braflix extends SourceModule {
       let imdb = episodeData(req.serverId).imdbID;
       let episode = episodeData(req.serverId).episodeNumber;
       let season = episodeData(req.serverId).seasonNumber;
-      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`)).text();
+      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`))
 
-      
-
-request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`, (error, response, body) => {
-    const json = JSON.parse(body);
-    console.log(json.vidsrc.subtitles[11].file);
-  subs = json.vidsrc.subtitles[11].file
-});
+    
 
       
     } else {
-      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
-      request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`, (error, response, body) => {
-    const json = JSON.parse(body);
-    console.log(json.vidsrc.subtitles[11].file);
-        subs = json.vidsrc.subtitles[11].file
-});
+      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`))
+      
     }
 
   
     
     try {
-      const json = JSON.parse(response)
-      
-
+      const json = JSON.parse(response.text())
+      const json2 = JSON.parse(response.body)
+      console.log(json2.vidsrc.subtitles[11].file)
 
       
       var fhd = "";
@@ -278,7 +268,7 @@ request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=$
             format: PlaylistEpisodeServerFormatType.hsl
           }
         ],
-        subtitles: [],
+        subtitles: [json2.vidsrc.subtitles[11].file],
         skipTimes: [],
         headers: {}
       };
