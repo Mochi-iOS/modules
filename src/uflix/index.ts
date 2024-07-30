@@ -28,7 +28,7 @@ export default class Braflix extends SourceModule {
   metadata = {
     name: "uFlix",
     icon: "",
-    version: "1.0.3",
+    version: "1.0.4",
   };
 
   async searchFilters(): Promise<SearchFilter[]> {
@@ -224,7 +224,7 @@ export default class Braflix extends SourceModule {
 
       
 
-request(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`, (error, response, body) => {
+request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`, (error, response, body) => {
     const json = JSON.parse(body);
     console.log(json.vidsrc.subtitles[11].file);
   subs = json.vidsrc.subtitles[11].file
@@ -233,7 +233,7 @@ request(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${epi
       
     } else {
       response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
-      request(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`, (error, response, body) => {
+      request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`, (error, response, body) => {
     const json = JSON.parse(body);
     console.log(json.vidsrc.subtitles[11].file);
         subs = json.vidsrc.subtitles[11].file
