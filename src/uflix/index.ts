@@ -215,22 +215,39 @@ export default class Braflix extends SourceModule {
   async playlistEpisodeServer(req: PlaylistEpisodeServerRequest): Promise<PlaylistEpisodeServerResponse> {
 
     var response;
-
+    var subs;
     if (req.serverId.includes("|S")) {
       let imdb = episodeData(req.serverId).imdbID;
       let episode = episodeData(req.serverId).episodeNumber;
       let season = episodeData(req.serverId).seasonNumber;
       response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`)).text();
+
+      
+
+request(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`, (error, response, body) => {
+    const json = JSON.parse(body);
+    console.log(json.vidsrc.subtitles[11].file);
+  subs = json.vidsrc.subtitles[11].file
+});
+
+      
     } else {
       response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`)).text();
+      request(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`, (error, response, body) => {
+    const json = JSON.parse(body);
+    console.log(json.vidsrc.subtitles[11].file);
+        subs = json.vidsrc.subtitles[11].file
+});
     }
 
   
     
     try {
       const json = JSON.parse(response)
-      console.log(json)
-      console.log(json.vidsrc.subtitles[11].file)
+      
+
+
+      
       var fhd = "";
       var hd = "";
       var low = "";
