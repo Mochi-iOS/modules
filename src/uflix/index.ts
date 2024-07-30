@@ -228,9 +228,9 @@ export default class Braflix extends SourceModule {
   
     
     try {
-      const json = JSON.parse(response);
-      const subtitles = json.vidsrc.subtitles
-      console.log(subtitles[12])
+      const json = JSON.parse(response)
+      console.log(json)
+      console.log(json.vidsrc.subtitles[11].file)
       var fhd = "";
       var hd = "";
       var low = "";
