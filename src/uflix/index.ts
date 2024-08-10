@@ -28,7 +28,7 @@ export default class Braflix extends SourceModule {
   metadata = {
     name: "uFlix",
     icon: "",
-    version: "1.0.4",
+    version: "1.0.5",
   };
 
   async searchFilters(): Promise<SearchFilter[]> {
@@ -220,13 +220,13 @@ export default class Braflix extends SourceModule {
       let imdb = episodeData(req.serverId).imdbID;
       let episode = episodeData(req.serverId).episodeNumber;
       let season = episodeData(req.serverId).seasonNumber;
-      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${imdb}?s=${season}&e=${episode}`))
+      response = (await request.get(`https://vidsrc.nanod.cloud/vidsrc/${imdb}?s=${season}&e=${episode}`))
 
     
 
       
     } else {
-      response = (await request.get(`https://vidsrc-api-js-two.vercel.app/vidsrc/${req.serverId}`))
+      response = (await request.get(`https://vidsrc.nanod.cloud/vidsrc/${req.serverId}`))
       
     }
 
@@ -235,14 +235,14 @@ export default class Braflix extends SourceModule {
     try {
       const json = JSON.parse(response.text())
       //const json2 = JSON.parse(response.body)
-      //console.log(json2.vidsrc.subtitles[11].file)
+      console.log(json.source1.data.source)
 
       
       var fhd = "";
       var hd = "";
       var low = "";
       
-      await parseM3U8(json.vidsrc.source).then(parser => {
+      await parseM3U8(json.source1.data.source).then(parser => {
         fhd = parser['1920x1080'];
         hd = parser['1280x720'];
         low = parser['640x360'];
