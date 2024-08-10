@@ -253,7 +253,7 @@ export default class Braflix extends SourceModule {
       return {
         links: [
           {
-            url: fhd,
+            url: json.source1.data.source,
             quality: PlaylistEpisodeServerQualityType.q1080p,
             format: PlaylistEpisodeServerFormatType.hsl
           },
